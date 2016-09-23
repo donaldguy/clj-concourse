@@ -4,6 +4,9 @@ A [Concourse](https://concourse.ci) API Library in Clojure
 
 ## Usage
 
+e.g. Get the jobs at the "right end" of a pipeline:
+
+```clojure
 (ns main
   (:use clj-concourse :as concourse))
 
@@ -15,4 +18,5 @@ A [Concourse](https://concourse.ci) API Library in Clojure
                                   :basic_auth_username "bot"
                                   :basic_auth_password "changeme")
          mj (jobs (map->pipeline {:team t , :name "main"}))]
-         (pprint (map :name (filter #(is-terminal-job? mj (:name %)) mj)))))
+         (println (map :name (filter #(is-terminal-job? mj (:name %)) mj)))))
+```
