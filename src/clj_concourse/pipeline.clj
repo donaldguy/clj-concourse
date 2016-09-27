@@ -1,5 +1,5 @@
 (ns clj-concourse.pipeline
-    (:use [clj-concourse.job :only [->job-list]])
+    (:use [clj-concourse.job :only [->job-list map->job]])
     (:require [clj-concourse.api :as api]))
 
 (defrecord pipeline-list [team]
@@ -19,3 +19,7 @@
 (defn jobs
   [p]
   (api/result (->job-list p)))
+
+(defn job
+  [p name]
+  (api/result (map->job :pipeline p :name name)))

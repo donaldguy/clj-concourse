@@ -10,7 +10,6 @@
 
 (defprotocol authed
   (->team [o] "Fetch team corresponding to object (for auth)"))
-
 (defprotocol unauthed)
 
 (declare authed-get)
@@ -31,11 +30,10 @@
     (if (contains? team :token)
       team
       ;; else
-      (let [
-            url (str (url team) "/auth/token")
-            username (:basic_auth_username team)
-            password (:basic_auth_password team)
-            response (http/get url {:basic-auth [username password]})]
+      (let [ url (str (url team) "/auth/token")
+             username (:basic_auth_username team)
+             password (:basic_auth_password team)
+             response (http/get url {:basic-auth [username password]})]
       (assoc team :token
               (get (json/decode (:body response)) "value")))))))
 
